@@ -1,33 +1,65 @@
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { useThemeColor } from '@/hooks/use-theme-color';
-import { StyleSheet, Text, View } from 'react-native';
+import ProfilePanel from "@/components/Profile/profile-panel";
+import { ThemedText } from "@/components/custom-text";
+import { ThemedView } from "@/components/themed-view";
+import { Colors } from "@/constants/theme";
+import { ScrollView, StyleSheet } from "react-native";
 
-export default function ExploreScreen() {
+export default function ProfileScreen() {
   return (
-    <ThemedView style={[styles.container]}>
-      <ThemedText style={styles.title}>Explore</ThemedText>
-      <ThemedText style={styles.body}>
-        This tab is ready for your features. Swap in your own components, data fetching, and
-        navigation flows as you build.
-      </ThemedText>
+    <ThemedView
+      darkColor={Colors.dark["background"]}
+      lightColor={Colors.light["background"]}
+      style={styles.container}
+    >
+      <ProfilePanel
+        name="Шалманов Максим"
+        pfp="https://i.ytimg.com/vi/1l6jKYa2wMQ/maxresdefault.jpg"
+        role="Волонтёр"
+        region="Минск"
+        hours={100}
+        style={styles.profilePanel}
+      ></ProfilePanel>
+      <ScrollView>
+        <ThemedText type="title" style={[{ height: 1000 }]}>
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+          ProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasdProfileasdsadasd
+        </ThemedText>
+      </ScrollView>
     </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    justifyContent: 'center',
-    gap: 12,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-  },
-  body: {
-    fontSize: 16,
-    lineHeight: 22,
-  },
+  container: {},
+  profilePanel: {},
 });
