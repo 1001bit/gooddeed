@@ -44,7 +44,14 @@ export const Styles = StyleSheet.create({
 
   glowing: {
     boxShadow: [
-      { offsetX: 0, offsetY: -2, blurRadius: 5, spreadDistance: 0, color: "rgba(255,255,255,0.05)", inset: true },
+      {
+        offsetX: 0,
+        offsetY: -2,
+        blurRadius: 5,
+        spreadDistance: 0,
+        color: "rgba(255,255,255,0.05)",
+        inset: true,
+      },
     ],
   },
 });

@@ -32,16 +32,14 @@ export default function ProfilePanel(props: ProfilePanelProps) {
           <View style={styles.row}>
             <Badge type="primary">
               <StyledText
-                type="defaultSemiBold"
+                type="default"
                 style={[{ color: Colors.dark["text"] }]}
               >
                 {props.data.role}
               </StyledText>
             </Badge>
             <Badge type="secondary">
-              <ThemedText type="defaultSemiBold">
-                {props.data.region}
-              </ThemedText>
+              <ThemedText type="default">{props.data.region}</ThemedText>
             </Badge>
           </View>
         </View>

@@ -19,6 +19,7 @@ export default function ProfileScreen() {
         style={styles.profilePanel}
       />
       <ScrollView contentContainerStyle={styles.eventList}>
+        <ThemedText type="subtitle">История мероприятий:</ThemedText>
         {profileEventsData.map((event, key) => {
           return <EventCard data={event} style={styles.eventCard} key={key} />;
         })}
@@ -45,8 +46,9 @@ const styles = StyleSheet.create({
     height: "auto",
     flexGrow: 1,
     padding: 12,
+    paddingVertical: 18,
     display: "flex",
     flexDirection: "column",
-    gap: 24,
+    gap: 18,
   },
 });

@@ -29,20 +29,20 @@ export default function EventCard(props: EventCardPropsProps) {
           style={styles.image}
         />
         <View style={styles.col}>
-          <ThemedText type="subtitle">{props.data.name}</ThemedText>
+          <ThemedText type="subtitle" style={{ flexShrink: 1 }}>
+            {props.data.name}
+          </ThemedText>
           <View style={styles.row}>
             <Badge type="primary">
               <StyledText
-                type="defaultSemiBold"
+                type="default"
                 style={[{ color: Colors.dark["text"] }]}
               >
                 {props.data.holder}
               </StyledText>
             </Badge>
             <Badge type="secondary">
-              <ThemedText type="defaultSemiBold">
-                {props.data.region}
-              </ThemedText>
+              <ThemedText type="default">{props.data.region}</ThemedText>
             </Badge>
           </View>
         </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   row: {
     display: "flex",
     flexDirection: "row",
-    gap: 12,
+    gap: 16,
   },
   col: {
     display: "flex",
