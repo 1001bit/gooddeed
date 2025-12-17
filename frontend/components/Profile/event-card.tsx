@@ -45,15 +45,12 @@ export default function EventCard(props: EventCardPropsProps) {
               </ThemedText>
             </Badge>
           </View>
-          <View style={styles.row}>
-            <ThemedText>{String(props.data.people)} участников</ThemedText>
-            <ThemedText>{String(props.data.hours)} часов</ThemedText>
-          </View>
         </View>
       </View>
-      <ThemedText type="defaultLarge">
-        {String(props.data.hours)} часов
-      </ThemedText>
+      <View style={[styles.row]}>
+        <ThemedText>{String(props.data.people)} участников</ThemedText>
+        <ThemedText>{String(props.data.hours)} часов</ThemedText>
+      </View>
     </ThemedView>
   );
 }
@@ -75,7 +72,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
   eventCard: {
-    padding: 12,
+    padding: 20,
     gap: 12,
     borderRadius: 20,
   },

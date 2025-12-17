@@ -1,7 +1,7 @@
 import { ThemedText } from "@/components/custom-text";
 import { ThemedView } from "@/components/themed-view";
 import { Colors } from "@/constants/theme";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 export default function HomeScreen() {
   return (

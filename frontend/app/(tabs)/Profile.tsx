@@ -1,7 +1,7 @@
 import ProfilePanel, { ProfileData } from "@/components/Profile/profile-panel";
 import { ThemedText } from "@/components/custom-text";
 import { ThemedView } from "@/components/themed-view";
-import { Colors } from "@/constants/theme";
+import { Colors, Styles } from "@/constants/theme";
 import { ScrollView, StyleSheet } from "react-native";
 import profileData from "@/mock/profile.json";
 import profileEventsData from "@/mock/profile-events.json";
@@ -28,15 +28,25 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  profilePanel: {},
-  eventCard: {},
+  container: {
+    flex: 1,
+  },
+  profilePanel: {
+    ...Styles.elevated,
+    ...Styles.glowing,
+    zIndex: 10,
+  },
+  eventCard: {
+    ...Styles.elevated,
+    ...Styles.glowing,
+  },
   eventList: {
     minHeight: "100%",
+    height: "auto",
+    flexGrow: 1,
     padding: 12,
-    paddingTop: 24,
     display: "flex",
     flexDirection: "column",
-    gap: 12,
+    gap: 24,
   },
 });

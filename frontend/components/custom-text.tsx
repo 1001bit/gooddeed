@@ -23,18 +23,18 @@ export function StyledText({
   ...rest
 }: StyledTextProps) {
   return (
-    <Text
-      style={[
-        type === "defaultLarge" ? styles.defaultLarge : undefined,
-        type === "default" ? styles.default : undefined,
-        type === "title" ? styles.title : undefined,
-        type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
-        type === "subtitle" ? styles.subtitle : undefined,
-        type === "link" ? styles.link : undefined,
-        style,
-      ]}
-      {...rest}
-    />
+      <Text
+        style={[
+          type === "defaultLarge" ? styles.defaultLarge : undefined,
+          type === "default" ? styles.default : undefined,
+          type === "title" ? styles.title : undefined,
+          type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
+          type === "subtitle" ? styles.subtitle : undefined,
+          type === "link" ? styles.link : undefined,
+          style
+        ]}
+        {...rest}
+      />
   );
 }
 
@@ -66,12 +66,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
-    fontWeight: "bold",
+    fontWeight: "600",
     lineHeight: 32,
   },
   subtitle: {
-    fontSize: 26,
-    fontWeight: "bold",
+    fontSize: 24,
+    fontWeight: "600",
   },
   link: {
     lineHeight: 30,

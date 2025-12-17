@@ -4,6 +4,7 @@
  */
 
 import { Platform } from "react-native";
+import { StyleSheet } from "react-native";
 
 const tintColorLight = "#00a455";
 const tintColorDark = tintColorLight;
@@ -20,14 +21,33 @@ export const Colors = {
   },
   dark: {
     text: "#fff",
-    surface: "#000",
-    background: "#111",
+    surface: "#111",
+    background: "#222",
     tint: tintColorDark,
     icon: "#9BA1A6",
     tabIconDefault: "#9BA1A6",
     tabIconSelected: tintColorDark,
   },
 };
+
+export const Styles = StyleSheet.create({
+  elevated: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+
+  glowing: {
+    boxShadow: [
+      { offsetX: 0, offsetY: -2, blurRadius: 5, spreadDistance: 0, color: "rgba(255,255,255,0.05)", inset: true },
+    ],
+  },
+});
 
 export const Fonts = Platform.select({
   ios: {

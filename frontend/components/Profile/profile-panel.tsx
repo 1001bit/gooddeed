@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     borderRadius: 1000,
   },
   profilePanel: {
-    padding: 10,
+    padding: 20,
     paddingTop: 40,
     gap: 12,
     borderBottomLeftRadius: 20,
