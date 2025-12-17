@@ -11,12 +11,16 @@ import {
 import Badge from "@/components/badge";
 import { Colors } from "@/constants/theme";
 
-interface ProfilePanelProps {
+export interface ProfileData {
   pfp: string;
   name: string;
   role: "Волонтёр" | "Организатор";
   region: string;
   hours: Number;
+}
+
+interface ProfilePanelProps {
+  data: ProfileData;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -26,30 +30,32 @@ export default function ProfilePanel(props: ProfilePanelProps) {
       <View style={styles.row}>
         <Image
           source={{
-            uri: props.pfp,
+            uri: props.data.pfp,
           }}
           style={styles.pfp}
         />
         <View style={styles.col}>
-          <ThemedText type="subtitle">{props.name}</ThemedText>
+          <ThemedText type="subtitle">{props.data.name}</ThemedText>
           <View style={styles.row}>
             <Badge type="primary">
               <StyledText
                 type="defaultSemiBold"
                 style={[{ color: Colors.dark["text"] }]}
               >
-                {props.role}
+                {props.data.role}
               </StyledText>
             </Badge>
             <Badge type="secondary">
-              <ThemedText type="defaultSemiBold">{props.region}</ThemedText>
+              <ThemedText type="defaultSemiBold">
+                {props.data.region}
+              </ThemedText>
             </Badge>
           </View>
-          <ThemedText type="defaultLarge">
-            {String(props.hours)} часов
-          </ThemedText>
         </View>
       </View>
+      <ThemedText type="defaultLarge">
+        {String(props.data.hours)} часов
+      </ThemedText>
     </ThemedView>
   );
 }

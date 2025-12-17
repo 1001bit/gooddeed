@@ -1,3 +1,3 @@
 [X] Profile header
-[ ] Data load from mock
-[ ] Profile history
+    [X] Data load from mock
+[ ] Profile event history

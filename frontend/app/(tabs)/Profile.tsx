@@ -1,8 +1,9 @@
-import ProfilePanel from "@/components/Profile/profile-panel";
+import ProfilePanel, { ProfileData } from "@/components/Profile/profile-panel";
 import { ThemedText } from "@/components/custom-text";
 import { ThemedView } from "@/components/themed-view";
 import { Colors } from "@/constants/theme";
 import { ScrollView, StyleSheet } from "react-native";
+import profileData from "@/mock/profile.json";
 
 export default function ProfileScreen() {
   return (
@@ -12,11 +13,7 @@ export default function ProfileScreen() {
       style={styles.container}
     >
       <ProfilePanel
-        name="Шалманов Максим"
-        pfp="https://i.ytimg.com/vi/1l6jKYa2wMQ/maxresdefault.jpg"
-        role="Волонтёр"
-        region="Минск"
-        hours={100}
+        data={profileData as ProfileData}
         style={styles.profilePanel}
       ></ProfilePanel>
       <ScrollView>
