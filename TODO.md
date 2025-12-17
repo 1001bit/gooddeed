@@ -1,3 +1,4 @@
 [X] Profile header
     [X] Data load from mock
-[ ] Profile event history
+[X] Profile event history
+[ ] Backend architecture

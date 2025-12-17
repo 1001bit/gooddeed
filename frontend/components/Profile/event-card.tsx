@@ -4,28 +4,29 @@ import { Image, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import Badge from "@/components/badge";
 import { Colors } from "@/constants/theme";
 
-export interface ProfileData {
-  pfp: string;
+export interface EventData {
+  image: string;
   name: string;
-  role: "Волонтёр" | "Организатор";
   region: string;
   hours: Number;
+  people: Number;
+  holder: string;
 }
 
-interface ProfilePanelProps {
-  data: ProfileData;
+interface EventCardPropsProps {
+  data: EventData;
   style?: StyleProp<ViewStyle>;
 }
 
-export default function ProfilePanel(props: ProfilePanelProps) {
+export default function EventCard(props: EventCardPropsProps) {
   return (
-    <ThemedView style={[styles.profilePanel, props.style]}>
+    <ThemedView style={[styles.eventCard, props.style]}>
       <View style={styles.row}>
         <Image
           source={{
-            uri: props.data.pfp,
+            uri: props.data.image,
           }}
-          style={styles.pfp}
+          style={styles.image}
         />
         <View style={styles.col}>
           <ThemedText type="subtitle">{props.data.name}</ThemedText>
@@ -35,7 +36,7 @@ export default function ProfilePanel(props: ProfilePanelProps) {
                 type="defaultSemiBold"
                 style={[{ color: Colors.dark["text"] }]}
               >
-                {props.data.role}
+                {props.data.holder}
               </StyledText>
             </Badge>
             <Badge type="secondary">
@@ -43,6 +44,10 @@ export default function ProfilePanel(props: ProfilePanelProps) {
                 {props.data.region}
               </ThemedText>
             </Badge>
+          </View>
+          <View style={styles.row}>
+            <ThemedText>{String(props.data.people)} участников</ThemedText>
+            <ThemedText>{String(props.data.hours)} часов</ThemedText>
           </View>
         </View>
       </View>
@@ -57,23 +62,21 @@ const styles = StyleSheet.create({
   row: {
     display: "flex",
     flexDirection: "row",
-    gap: 8,
+    gap: 12,
   },
   col: {
     display: "flex",
     flexDirection: "column",
-    gap: 8,
+    gap: 12,
   },
-  pfp: {
+  image: {
     height: "auto",
     aspectRatio: 1,
-    borderRadius: 1000,
+    borderRadius: 18,
   },
-  profilePanel: {
-    padding: 10,
-    paddingTop: 40,
+  eventCard: {
+    padding: 12,
     gap: 12,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderRadius: 20,
   },
 });
