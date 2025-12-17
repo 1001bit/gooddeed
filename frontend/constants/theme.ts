@@ -3,30 +3,27 @@
  * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
  */
 
-import { Platform } from "react-native";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
-const tintColorLight = "#00a455";
-const tintColorDark = tintColorLight;
+// Brand accent (works as button/badge background with light text).
 
 export const Colors = {
+  tint: "#15803D",
   light: {
-    text: "#000",
-    surface: "#fff",
-    background: "#eee",
-    tint: tintColorLight,
-    icon: "#687076",
-    tabIconDefault: "#687076",
-    tabIconSelected: tintColorLight,
+    text: "#0F172A",
+    surface: "#ececf0",
+    background: "#FFFFFF",
+    icon: "#64748B",
+    tabIconSelected: "#15803D",
+    tabIconDefault: "#64748B",
   },
   dark: {
-    text: "#fff",
-    surface: "#111",
-    background: "#222",
-    tint: tintColorDark,
-    icon: "#9BA1A6",
-    tabIconDefault: "#9BA1A6",
-    tabIconSelected: tintColorDark,
+    text: "#F8FAFC",
+    surface: "#0b0b0b",
+    background: "#1a1a1a",
+    icon: "#94A3B8",
+    tabIconSelected: "#15803D",
+    tabIconDefault: "#94A3B8",
   },
 };
 
@@ -46,9 +43,9 @@ export const Styles = StyleSheet.create({
     boxShadow: [
       {
         offsetX: 0,
-        offsetY: -2,
+        offsetY: 0,
         blurRadius: 5,
-        spreadDistance: 0,
+        spreadDistance: 2,
         color: "rgba(255,255,255,0.05)",
         inset: true,
       },

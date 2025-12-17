@@ -1,77 +1,95 @@
-import { ThemedView } from "@/components/themed-view";
-import { StyledText, ThemedText } from "@/components/custom-text";
-import { Image, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
-import Badge from "@/components/badge";
+import { ThemedText } from "@/components/custom-text";
+import { Ionicons } from "@expo/vector-icons";
+import {
+  Image,
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from "react-native";
 import { Colors } from "@/constants/theme";
+import ProfileBadge from "./profile-badge";
 
 export interface ProfileData {
   pfp: string;
   name: string;
   role: "Волонтёр" | "Организатор";
   region: string;
-  hours: Number;
+  hours: number;
 }
 
 interface ProfilePanelProps {
   data: ProfileData;
+  eventsCount: number;
   style?: StyleProp<ViewStyle>;
 }
 
 export default function ProfilePanel(props: ProfilePanelProps) {
   return (
-    <ThemedView style={[styles.profilePanel, props.style]}>
-      <View style={styles.row}>
+    <View style={[styles.profilePanel, props.style]}>
+      <View style={styles.centerContent}>
         <Image
           source={{
             uri: props.data.pfp,
           }}
           style={styles.pfp}
         />
-        <View style={styles.col}>
-          <ThemedText type="subtitle">{props.data.name}</ThemedText>
-          <View style={styles.row}>
-            <Badge type="primary">
-              <StyledText
-                type="default"
-                style={[{ color: Colors.dark["text"] }]}
-              >
-                {props.data.role}
-              </StyledText>
-            </Badge>
-            <Badge type="secondary">
-              <ThemedText type="default">{props.data.region}</ThemedText>
-            </Badge>
-          </View>
-        </View>
+
+        <ThemedText
+          type="profileName"
+          lightColor={Colors.dark.text}
+          darkColor={Colors.dark.text}
+        >
+          {props.data.name}
+        </ThemedText>
+        <ThemedText
+          type="profileRole"
+          lightColor={Colors.dark.text}
+          darkColor={Colors.dark.text}
+        >
+          {props.data.role}
+        </ThemedText>
       </View>
-      <ThemedText type="defaultLarge">
-        {String(props.data.hours)} часов
-      </ThemedText>
-    </ThemedView>
+
+      <View style={styles.statsRow}>
+        <ProfileBadge title="Часов" value={props.data.hours} />
+        <ProfileBadge title="Участий" value={props.eventsCount} />
+        <ProfileBadge title="Регион" value={props.data.region} />
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  row: {
-    display: "flex",
-    flexDirection: "row",
-    gap: 8,
+  profilePanel: {
+    paddingHorizontal: 16,
+    paddingTop: 36,
+    paddingBottom: 18,
+    backgroundColor: Colors.tint,
   },
-  col: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 8,
+  settingsRow: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
+  centerContent: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: 10,
+    paddingBottom: 20,
+    gap: 10,
   },
   pfp: {
-    height: "auto",
-    aspectRatio: 1,
-    borderRadius: 1000,
+    height: 104,
+    width: 104,
+    borderWidth: 4,
+    borderColor: "white",
+    borderRadius: 9999,
+    backgroundColor: "rgba(255,255,255,0.2)",
   },
-  profilePanel: {
-    padding: 20,
-    paddingTop: 40,
+  statsRow: {
+    flexDirection: "row",
     gap: 12,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    paddingBottom: 8,
   },
 });

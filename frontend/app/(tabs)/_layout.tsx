@@ -6,16 +6,20 @@ import { useThemeColor } from "@/hooks/use-theme-color";
 export default function TabLayout() {
   const tabIcons = {
     index: ["home-outline", "home"] as const,
-    Profile: ["person-outline", "person"] as const,
+    Events: ["calendar-outline", "calendar"] as const,
   };
+
+  const tabBarActiveTintColor = useThemeColor({}, "tabIconSelected");
+  const tabBarInactiveTintColor = useThemeColor({}, "tabIconDefault");
+  const tabBarBackgroundColor = useThemeColor({}, "surface");
 
   return (
     <Tabs
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: useThemeColor({}, "tabIconSelected"),
-        tabBarInactiveTintColor: useThemeColor({}, "tabIconDefault"),
-        tabBarStyle: { backgroundColor: useThemeColor({}, "surface") },
+        tabBarActiveTintColor,
+        tabBarInactiveTintColor,
+        tabBarStyle: { backgroundColor: tabBarBackgroundColor },
         tabBarIcon: ({ color, size, focused }) => {
           const [outline, filled] = tabIcons[
             route.name as keyof typeof tabIcons
@@ -25,8 +29,8 @@ export default function TabLayout() {
         },
       })}
     >
-      <Tabs.Screen name="index" options={{ title: "Home" }} />
-      <Tabs.Screen name="Profile" options={{ title: "Profile" }} />
+      <Tabs.Screen name="index" options={{ title: "Главная" }} />
+      <Tabs.Screen name="Events" options={{ title: "Мероприятия" }} />
     </Tabs>
   );
 }
