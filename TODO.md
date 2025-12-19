@@ -2,7 +2,7 @@
     [X] Basic info
     [ ] Details
         [ ] Photos
-        [ ] Description
+        [X] Description
 [X] Profile 
     [X] Header
     [X] Event Cards

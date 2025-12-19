@@ -20,15 +20,14 @@ export interface EventData {
   region: string;
   hours: number;
   people: number;
+  description: string;
   holder: string;
+  past: boolean;
   startAt?: string;
 }
 
-export type EventCardStatus = "Предстоит" | "Прошло";
-
 interface EventCardProps {
   data: EventData;
-  status?: EventCardStatus;
   style?: StyleProp<ViewStyle>;
   onPressDetails?: () => void;
 }
@@ -38,11 +37,12 @@ export default function EventCard(props: EventCardProps) {
   const cardBg = useThemeColor({}, "surface");
   const iconColor = useThemeColor({}, "icon");
 
-  const statusLabel = props.status ?? "Предстоит";
+  const statusLabel = props.data.past ? "Прошло" : "Предстоит";
   const statusBg = useThemeColor({}, "background");
   const statusFg = useThemeColor({}, "text");
 
   return (
+    <Pressable onPress={props.onPressDetails}>
     <ThemedView style={[styles.card, { backgroundColor: cardBg }, props.style]}>
       <View style={styles.heroWrap}>
         <Image source={{ uri: props.data.image }} style={styles.heroImage} />
@@ -88,27 +88,9 @@ export default function EventCard(props: EventCardProps) {
             text={`${props.data.startAt}`}
           />
         </View>
-
-        <Pressable
-          accessibilityRole="button"
-          onPress={props.onPressDetails}
-          style={({ pressed }) => [
-            styles.detailsButton,
-            {
-              borderColor: Colors.tint,
-              opacity: pressed ? 0.85 : 1,
-            },
-          ]}
-        >
-          <ThemedText
-            type="default"
-            style={[styles.detailsButtonText, { color: Colors.tint }]}
-          >
-            Посмотреть
-          </ThemedText>
-        </Pressable>
       </View>
     </ThemedView>
+    </Pressable>
   );
 }
 

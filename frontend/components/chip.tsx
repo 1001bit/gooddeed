@@ -1,5 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import { ThemedText } from "@/components/custom-text";
+import { Styles } from "@/constants/theme";
 
 export function Chip({
   label,
@@ -62,6 +63,8 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 999,
     borderWidth: 1,
+    ...Styles.elevated, 
+    ...Styles.glowing,
   },
   chipText: {
     fontSize: 12,

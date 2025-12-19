@@ -5,58 +5,54 @@ import { Colors, Styles } from "@/constants/theme";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { Ionicons } from "@expo/vector-icons";
 import { useMemo, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, View } from "react-native";
-import profileData from "@/mock/profile.json";
-import profileEventsData from "@/mock/profile-events.json";
-import EventCard, {
-  EventCardStatus,
-  type EventData,
-} from "@/components/Profile/event-card";
-import { Segment } from "@/components/Profile/Segment";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { getProfileMock } from "@/mock/profile";
+import { getProfileEventsMock } from "@/mock/profile-events";
+import EventCard, { type EventData } from "@/components/Profile/event-card";
+import { Segment } from "@/components/Segment";
+import { useRouter } from "expo-router";
 
 export default function ProfileScreen() {
-  const events = profileEventsData as EventData[];
-  const [tab, setTab] = useState<EventCardStatus>("Предстоит");
+  const router = useRouter();
+  const profileData = useMemo<ProfileData>(() => getProfileMock(), []);
+  const events = useMemo<EventData[]>(() => getProfileEventsMock(), []);
+  const [tabPast, setTabPast] = useState<boolean>(true);
   const segmentedBg = useThemeColor({}, "surface");
   const segmentedBorder = useThemeColor({}, "surface");
   const segmentActiveBg = useThemeColor({}, "background");
 
   const { upcoming, past } = useMemo(() => {
-    const now = Date.now();
     const upcomingEvents: EventData[] = [];
     const pastEvents: EventData[] = [];
 
     for (const event of events) {
-      let startAt = NaN;
-      if (event.startAt) {
-        let parts = event.startAt.split(".");
-        if (parts.length === 3) {
-          startAt = new Date(
-            parseInt(parts[2]),
-            parseInt(parts[1]) - 1,
-            parseInt(parts[0])
-          ).getTime();
-        }
-      }
-      if (!Number.isNaN(startAt)) {
-        if (startAt >= now) upcomingEvents.push(event);
-        else pastEvents.push(event);
-      } else {
+      if (event.past) {
         pastEvents.push(event);
+      } else {
+        upcomingEvents.push(event);
       }
     }
 
     return { all: events, upcoming: upcomingEvents, past: pastEvents };
   }, [events]);
 
-  const filteredEvents = tab === "Предстоит" ? upcoming : past;
+  const filteredEvents = tabPast ? past : upcoming;
+
+  const openEventDetails = (event: EventData) => {
+    router.push({
+      pathname: "/event-details",
+      params: {
+        event: JSON.stringify({ ...event, status: tabPast }),
+      },
+    });
+  };
 
   return (
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
         <ProfilePanel
-          data={profileData as ProfileData}
-          eventsCount={events.length}
+          data={profileData}
+          eventsCount={past.length}
           style={styles.profilePanel}
         />
 
@@ -76,15 +72,15 @@ export default function ProfileScreen() {
           >
             <Segment
               label="Предстоит"
-              active={tab === "Предстоит"}
+              active={!tabPast}
               activeBg={segmentActiveBg}
-              onPress={() => setTab("Предстоит")}
+              onPress={() => setTabPast(false)}
             />
             <Segment
               label="Прошло"
-              active={tab === "Прошло"}
+              active={tabPast}
               activeBg={segmentActiveBg}
-              onPress={() => setTab("Прошло")}
+              onPress={() => setTabPast(true)}
             />
           </View>
 
@@ -99,9 +95,9 @@ export default function ProfileScreen() {
               {filteredEvents.map((data, key) => (
                 <EventCard
                   data={data}
-                  key={`${tab}-${key}`}
-                  status={tab}
+                  key={`${tabPast}-${key}`}
                   style={styles.eventCard}
+                  onPressDetails={() => openEventDetails(data)}
                 />
               ))}
             </View>

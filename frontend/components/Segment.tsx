@@ -1,4 +1,5 @@
 import { ThemedText } from "@/components/custom-text";
+import { Styles } from "@/constants/theme";
 import { Pressable, StyleSheet } from "react-native";
 
 export function Segment({
@@ -18,7 +19,7 @@ export function Segment({
       onPress={onPress}
       style={({ pressed }) => [
         styles.segment,
-        active ? { backgroundColor: activeBg } : null,
+        active ? [{ backgroundColor: activeBg }, styles.segmentActive] : null,
         { opacity: pressed ? 0.9 : 1 },
       ]}
     >
@@ -33,6 +34,10 @@ export function Segment({
 }
 
 const styles = StyleSheet.create({
+  segmentActive: {
+    ...Styles.elevated, 
+    ...Styles.glowing
+  },
   segment: {
     flex: 1,
     paddingVertical: 10,
