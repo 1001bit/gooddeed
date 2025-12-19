@@ -4,8 +4,8 @@ import { ThemedView } from "@/components/themed-view";
 import { Colors, Styles } from "@/constants/theme";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { Ionicons } from "@expo/vector-icons";
-import { useMemo, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { useCallback, useMemo, useState } from "react";
+import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
 import { getProfileMock } from "@/mock/profile";
 import { getProfileEventsMock } from "@/mock/profile-events";
 import EventCard, { type EventData } from "@/components/Profile/event-card";
@@ -14,12 +14,22 @@ import { useRouter } from "expo-router";
 
 export default function ProfileScreen() {
   const router = useRouter();
-  const profileData = useMemo<ProfileData>(() => getProfileMock(), []);
-  const events = useMemo<EventData[]>(() => getProfileEventsMock(), []);
+  const [profileData, setProfileData] = useState<ProfileData>(() =>
+    getProfileMock()
+  );
+  const [events, setEvents] = useState<EventData[]>(() => getProfileEventsMock());
   const [tabPast, setTabPast] = useState<boolean>(true);
+  const [refreshing, setRefreshing] = useState(false);
   const segmentedBg = useThemeColor({}, "surface");
   const segmentedBorder = useThemeColor({}, "surface");
   const segmentActiveBg = useThemeColor({}, "background");
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setProfileData(getProfileMock());
+    setEvents(getProfileEventsMock());
+    setRefreshing(false);
+  }, []);
 
   const { upcoming, past } = useMemo(() => {
     const upcomingEvents: EventData[] = [];
@@ -49,7 +59,17 @@ export default function ProfileScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={Colors.tint}
+            colors={[Colors.tint]}
+          />
+        }
+      >
         <ProfilePanel
           data={profileData}
           eventsCount={past.length}

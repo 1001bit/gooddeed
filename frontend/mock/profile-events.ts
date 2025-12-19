@@ -17,7 +17,7 @@ const profileEventsMock: EventData[] = [
     region: "Налибокская Пуща",
     hours: 5,
     people: 20,
-    holder: "Академия Национальной Безопасности",
+    holder: "Академия Национальной Безопасности, Лицей БГУ",
     startAt: "25.11.2025",
     past: true,
     description: `

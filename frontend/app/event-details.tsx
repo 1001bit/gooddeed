@@ -10,15 +10,13 @@ import {
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
-import type {
-  EventData,
-} from "@/components/Profile/event-card";
 import { ThemedText } from "@/components/custom-text";
 import { ThemedView } from "@/components/themed-view";
 import { Colors, Fonts } from "@/constants/theme";
 import { Chip } from "@/components/chip";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { EventData } from "@/mock/profile-events";
 
 type EventDetailsParams = {
   event?: string | string[];
@@ -93,6 +91,11 @@ export default function EventDetailsScreen() {
     }
   };
 
+  const backendHost = process.env.EXPO_PUBLIC_BACKEND_HOST;
+  const imageUri = backendHost
+    ? backendHost + "/image/event/" + eventPayload?.id
+    : "";
+
   return (
     <ThemedView style={styles.container}>
       <Stack.Screen
@@ -104,11 +107,7 @@ export default function EventDetailsScreen() {
 
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.heroWrap}>
-          {eventPayload?.image ? (
-            <Image source={{ uri: eventPayload.image }} style={styles.hero} />
-          ) : (
-            <View style={[styles.hero, styles.heroFallback]} />
-          )}
+          <Image source={{ uri: imageUri }} style={styles.hero} />
 
           <View style={styles.heroTop}>
             <Pressable
@@ -173,11 +172,7 @@ export default function EventDetailsScreen() {
                     { backgroundColor: iconBg, borderColor: Colors.tint },
                   ]}
                 >
-                  <Ionicons
-                    name={detail.icon}
-                    size={22}
-                    color={iconFg}
-                  />
+                  <Ionicons name={detail.icon} size={22} color={iconFg} />
                 </View>
                 <View style={styles.metaTextWrap}>
                   <ThemedText type="subtitle" style={styles.metaLabel}>
@@ -196,7 +191,9 @@ export default function EventDetailsScreen() {
           <ThemedText type="subtitle" style={styles.sectionTitle}>
             О мероприятии
           </ThemedText>
-          <ThemedText style={styles.description}>{eventPayload?.description}</ThemedText>
+          <ThemedText style={styles.description}>
+            {eventPayload?.description}
+          </ThemedText>
         </ThemedView>
       </ScrollView>
     </ThemedView>
