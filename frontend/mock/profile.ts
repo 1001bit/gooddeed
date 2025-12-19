@@ -9,7 +9,7 @@ export interface ProfileData {
 const profileMock: ProfileData = {
   id: 1,
   name: "Шалманов Максим",
-  role: "Волонтёр",
+  role: "Организатор",
   region: "Минск",
   hours: 100,
 };

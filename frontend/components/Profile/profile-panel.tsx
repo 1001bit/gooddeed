@@ -46,7 +46,10 @@ export default function ProfilePanel(props: ProfilePanelProps) {
 
       <View style={styles.statsRow}>
         <ProfileBadge title="Часов" value={props.data.hours} />
-        <ProfileBadge title="Участий" value={props.eventsCount} />
+        <ProfileBadge
+          title={props.data.role == "Организатор" ? "Событий" : "Участий"}
+          value={props.eventsCount}
+        />
         <ProfileBadge title="Регион" value={props.data.region} />
       </View>
     </View>

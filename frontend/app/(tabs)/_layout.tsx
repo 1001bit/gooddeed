@@ -2,16 +2,22 @@ import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
 import { useThemeColor } from "@/hooks/use-theme-color";
+import { getProfileMock } from "@/mock/profile";
 
 export default function TabLayout() {
   const tabIcons = {
     index: ["home-outline", "home"] as const,
     Events: ["calendar-outline", "calendar"] as const,
+    Organize: ["add-circle-outline", "add-circle"] as const,
   };
 
   const tabBarActiveTintColor = useThemeColor({}, "tabIconSelected");
   const tabBarInactiveTintColor = useThemeColor({}, "tabIconDefault");
   const tabBarBackgroundColor = useThemeColor({}, "surface");
+  const screens = [
+    { name: "index", options: { title: "Главная" } },
+    { name: "Events", options: { title: "Мероприятия" } },
+  ];
 
   return (
     <Tabs
@@ -29,8 +35,9 @@ export default function TabLayout() {
         },
       })}
     >
-      <Tabs.Screen name="index" options={{ title: "Главная" }} />
-      <Tabs.Screen name="Events" options={{ title: "Мероприятия" }} />
+      {screens.map(({ name, options }) => (
+        <Tabs.Screen key={name} name={name} options={options} />
+      ))}
     </Tabs>
   );
 }

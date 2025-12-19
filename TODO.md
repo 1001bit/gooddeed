@@ -8,7 +8,7 @@
 [X] Profile 
     [X] Header
     [X] Event Cards
-[ ] Organizer menu
+[X] Organizer menu
 [ ] Upcoming events catalog
     [ ] Event cards
 [ ] Backend

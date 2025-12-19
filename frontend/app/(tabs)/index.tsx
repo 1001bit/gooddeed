@@ -1,23 +1,31 @@
-import ProfilePanel, { ProfileData } from "@/components/Profile/profile-panel";
+import ProfilePanel from "@/components/Profile/profile-panel";
 import { ThemedText } from "@/components/custom-text";
 import { ThemedView } from "@/components/themed-view";
 import { Colors, Styles } from "@/constants/theme";
 import { useThemeColor } from "@/hooks/use-theme-color";
 import { Ionicons } from "@expo/vector-icons";
 import { useCallback, useMemo, useState } from "react";
-import { RefreshControl, ScrollView, StyleSheet, View } from "react-native";
-import { getProfileMock } from "@/mock/profile";
-import { getProfileEventsMock } from "@/mock/profile-events";
-import EventCard, { type EventData } from "@/components/Profile/event-card";
+import {
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
+import { getProfileMock, ProfileData } from "@/mock/profile";
+import { EventData, getProfileEventsMock } from "@/mock/profile-events";
 import { Segment } from "@/components/Segment";
 import { useRouter } from "expo-router";
+import EventCard from "@/components/Profile/event-card";
 
 export default function ProfileScreen() {
   const router = useRouter();
   const [profileData, setProfileData] = useState<ProfileData>(() =>
     getProfileMock()
   );
-  const [events, setEvents] = useState<EventData[]>(() => getProfileEventsMock());
+  const [events, setEvents] = useState<EventData[]>(() =>
+    getProfileEventsMock()
+  );
   const [tabPast, setTabPast] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState(false);
   const segmentedBg = useThemeColor({}, "surface");
@@ -47,6 +55,7 @@ export default function ProfileScreen() {
   }, [events]);
 
   const filteredEvents = tabPast ? past : upcoming;
+  const isOrganizer = profileData.role === "Организатор";
 
   const openEventDetails = (event: EventData) => {
     router.push({
@@ -55,6 +64,10 @@ export default function ProfileScreen() {
         event: JSON.stringify({ ...event, status: tabPast }),
       },
     });
+  };
+
+  const openOrganize = () => {
+    router.push("/organize");
   };
 
   return (
@@ -75,6 +88,22 @@ export default function ProfileScreen() {
           eventsCount={past.length}
           style={styles.profilePanel}
         />
+
+        {isOrganizer ? (
+          <Pressable
+            accessibilityRole="button"
+            onPress={openOrganize}
+            style={({ pressed }) => [
+              styles.organizeButton,
+              { opacity: pressed ? 0.9 : 1 },
+            ]}
+          >
+            <Ionicons name="add-circle-outline" size={18} color="#fff" />
+            <ThemedText type="subtitle" style={styles.organizeButtonText}>
+              Организовать
+            </ThemedText>
+          </Pressable>
+        ) : null}
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
@@ -135,6 +164,23 @@ const styles = StyleSheet.create({
   profilePanel: {
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
+  },
+  organizeButton: {
+    ...Styles.elevated,
+    marginHorizontal: 14,
+    marginTop: 12,
+    paddingVertical: 13,
+    paddingHorizontal: 16,
+    borderRadius: 14,
+    backgroundColor: Colors.tint,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+  },
+  organizeButtonText: {
+    color: "#fff",
+    fontWeight: "700",
   },
   content: {
     paddingBottom: 24,
