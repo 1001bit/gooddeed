@@ -1,13 +1,15 @@
-[ ] Event cards
+[X] Event cards
     [X] Basic info
-    [ ] Details
-        [ ] Photos
+    [X] Details
+        [X] Basic data
         [X] Description
+        [X] Photo
+        [ ] Photos
 [X] Profile 
     [X] Header
     [X] Event Cards
 [ ] Organizer menu
 [ ] Upcoming events catalog
     [ ] Event cards
-[ ] Region Rating
-[ ] Backend architecture
+[ ] Backend
+    [X] Image loading

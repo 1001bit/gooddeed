@@ -1,23 +1,9 @@
 import { ThemedText } from "@/components/custom-text";
-import { Ionicons } from "@expo/vector-icons";
-import {
-  Image,
-  Pressable,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from "react-native";
+import { Image } from "expo-image";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { Colors } from "@/constants/theme";
 import ProfileBadge from "./profile-badge";
-
-export interface ProfileData {
-  pfp: string;
-  name: string;
-  role: "Волонтёр" | "Организатор";
-  region: string;
-  hours: number;
-}
+import { ProfileData } from "@/mock/profile";
 
 interface ProfilePanelProps {
   data: ProfileData;
@@ -26,14 +12,20 @@ interface ProfilePanelProps {
 }
 
 export default function ProfilePanel(props: ProfilePanelProps) {
+  const backendHost = process.env.EXPO_PUBLIC_BACKEND_HOST;
+  const imageUri = backendHost
+    ? backendHost + "/image/pfp/" + props.data.id
+    : "";
+
   return (
     <View style={[styles.profilePanel, props.style]}>
       <View style={styles.centerContent}>
         <Image
           source={{
-            uri: props.data.pfp,
+            uri: imageUri,
           }}
           style={styles.pfp}
+          cachePolicy="none"
         />
 
         <ThemedText

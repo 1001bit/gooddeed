@@ -1,8 +1,18 @@
-import type { EventData } from "@/components/Profile/event-card";
+export interface EventData {
+  id: number;
+  text: string;
+  region: string;
+  hours: number;
+  people: number;
+  description: string;
+  holder: string;
+  past: boolean;
+  startAt?: string;
+}
 
 const profileEventsMock: EventData[] = [
   {
-    image: "https://i.ibb.co/d0qnQvDC/image.png",
+    id: 1,
     text: "Дай лесу новае жыццё",
     region: "Налибокская Пуща",
     hours: 5,
@@ -19,7 +29,7 @@ const profileEventsMock: EventData[] = [
     `,
   },
   {
-    image: "https://extxe.com/wp-content/uploads/2019/04/%D0%BB%D0%B5%D1%81-1.jpg",
+    id: 2,
     text: "Посадка леса",
     region: "Минск",
     hours: 5,
@@ -30,7 +40,7 @@ const profileEventsMock: EventData[] = [
     description: "Описание",
   },
   {
-    image: "https://extxe.com/wp-content/uploads/2019/04/%D0%BB%D0%B5%D1%81-1.jpg",
+    id: 3,
     text: "Посадка леса",
     region: "Минск",
     hours: 5,
@@ -41,8 +51,7 @@ const profileEventsMock: EventData[] = [
     description: "Описание",
   },
   {
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzj2Zl_Fw5WZ3CPR86fG2wQ9TNpENSL7JtSQ&s",
+    id: 4,
     text: "Посадка леса",
     region: "Минск",
     hours: 5,
@@ -56,4 +65,3 @@ const profileEventsMock: EventData[] = [
 
 export const getProfileEventsMock = (): EventData[] =>
   profileEventsMock.map((event) => ({ ...event }));
-

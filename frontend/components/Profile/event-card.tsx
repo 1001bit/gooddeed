@@ -3,28 +3,11 @@ import { ThemedView } from "@/components/themed-view";
 import { Colors } from "@/constants/theme";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { useThemeColor } from "@/hooks/use-theme-color";
-import {
-  Image,
-  Pressable,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
-} from "react-native";
+import { Image } from "expo-image";
+import { Pressable, StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { Chip } from "@/components/chip";
 import { MetaRow } from "../metarow";
-
-export interface EventData {
-  image: string;
-  text: string;
-  region: string;
-  hours: number;
-  people: number;
-  description: string;
-  holder: string;
-  past: boolean;
-  startAt?: string;
-}
+import { EventData } from "@/mock/profile-events";
 
 interface EventCardProps {
   data: EventData;
@@ -41,55 +24,66 @@ export default function EventCard(props: EventCardProps) {
   const statusBg = useThemeColor({}, "background");
   const statusFg = useThemeColor({}, "text");
 
+  const backendHost = process.env.EXPO_PUBLIC_BACKEND_HOST;
+  const imageUri = backendHost
+    ? backendHost + "/image/event/" + props.data.id
+    : "";
+
   return (
     <Pressable onPress={props.onPressDetails}>
-    <ThemedView style={[styles.card, { backgroundColor: cardBg }, props.style]}>
-      <View style={styles.heroWrap}>
-        <Image source={{ uri: props.data.image }} style={styles.heroImage} />
-        <View style={styles.heroOverlay}>
-          {statusLabel ? (
-            <Chip
-              label={statusLabel}
-              scheme={scheme}
-              backgroundColor={statusBg}
-              textColor={statusFg}
+      <ThemedView
+        style={[styles.card, { backgroundColor: cardBg }, props.style]}
+      >
+        <View style={styles.heroWrap}>
+          <Image
+            source={{ uri: imageUri }}
+            style={styles.heroImage}
+            cachePolicy="none"
+          />
+          <View style={styles.heroOverlay}>
+            {statusLabel ? (
+              <Chip
+                label={statusLabel}
+                scheme={scheme}
+                backgroundColor={statusBg}
+                textColor={statusFg}
+              />
+            ) : null}
+          </View>
+        </View>
+
+        <View style={styles.body}>
+          <ThemedText type="subtitle" style={styles.title}>
+            {props.data.text}
+          </ThemedText>
+          <ThemedText type="default" style={styles.subtitle}>
+            {props.data.holder}
+          </ThemedText>
+
+          <View style={styles.metaList}>
+            <MetaRow
+              icon="location-outline"
+              iconColor={iconColor}
+              text={`${props.data.region}`}
             />
-          ) : null}
+            <MetaRow
+              icon="time-outline"
+              iconColor={iconColor}
+              text={`${props.data.hours} часов`}
+            />
+            <MetaRow
+              icon="people-outline"
+              iconColor={iconColor}
+              text={`${props.data.people} участников`}
+            />
+            <MetaRow
+              icon="calendar-outline"
+              iconColor={iconColor}
+              text={`${props.data.startAt}`}
+            />
+          </View>
         </View>
-      </View>
-
-      <View style={styles.body}>
-        <ThemedText type="subtitle" style={styles.title}>
-          {props.data.text}
-        </ThemedText>
-        <ThemedText type="default" style={styles.subtitle}>
-          {props.data.holder}
-        </ThemedText>
-
-        <View style={styles.metaList}>
-          <MetaRow
-            icon="location-outline"
-            iconColor={iconColor}
-            text={`${props.data.region}`}
-          />
-          <MetaRow
-            icon="time-outline"
-            iconColor={iconColor}
-            text={`${props.data.hours} часов`}
-          />
-          <MetaRow
-            icon="people-outline"
-            iconColor={iconColor}
-            text={`${props.data.people} участников`}
-          />
-          <MetaRow
-            icon="calendar-outline"
-            iconColor={iconColor}
-            text={`${props.data.startAt}`}
-          />
-        </View>
-      </View>
-    </ThemedView>
+      </ThemedView>
     </Pressable>
   );
 }
