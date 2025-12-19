@@ -6,8 +6,8 @@
 [X] Profile 
     [X] Header
     [X] Event Cards
+[ ] Organizer menu
 [ ] Upcoming events catalog
     [ ] Event cards
 [ ] Region Rating
-[ ] Organizer menu
 [ ] Backend architecture
